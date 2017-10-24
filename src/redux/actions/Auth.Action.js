@@ -10,7 +10,6 @@ export function signInUser(credentials) {
         firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
             .then((response) => {
                 dispatch(authUser());
-                console.log(response);
             })
             .catch(error => {
                 dispatch(authError(error));

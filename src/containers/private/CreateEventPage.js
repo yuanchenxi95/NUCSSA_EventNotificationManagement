@@ -7,7 +7,7 @@ import { ControlLabel, Form, FormGroup, FormControl, Button, Alert } from 'react
 import { push } from 'react-router-redux';
 
 // import { signInUser } from 'src/redux/actions/Auth.Action';
-import { createEvent } from 'src/redux/actions/Event/CreateEvent.Action';
+import { createEvent, resetCreateEventReducer } from 'src/redux/actions/Event/CreateEvent.Action';
 import { routesObject } from "src/routes";
 import Error from "src/components/Error";
 import { convertFileToBase64 } from 'src/utils';
@@ -30,8 +30,12 @@ class CreateEventPage extends React.Component {
         this.handleImageUpload = this.handleImageUpload.bind(this);
     }
 
+    componentWillUnmount() {
+        this.props.onResetCreateEventReducer()
+    }
+
     redirectToEventList() {
-        this.props.dispatch(push(routesObject.eventList.path));
+        this.props.dispatch(push(routesObject.private.eventList.path));
     }
 
     handleCreate() {
@@ -45,7 +49,11 @@ class CreateEventPage extends React.Component {
         this.setState({Image: result});
     }
     render() {
-        let { error, isLoading } = this.props;
+        let { error, isLoading, success } = this.props;
+
+        if (success) {
+            this.redirectToEventList();
+        }
 
         if (isLoading) {
             return (
@@ -129,6 +137,7 @@ CreateEventPage.propTypes = {
     isLoading: PropTypes.bool.isRequired,
     success: PropTypes.bool.isRequired,
     onCreateEvent: PropTypes.func.isRequired,
+    onResetCreateEventReducer: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired
 };
 
@@ -148,7 +157,8 @@ function mapStateToProps({ eventReducer }) {
 function mapDispatchToProps(dispatch) {
     return {
         dispatch,
-        onCreateEvent: (event) => dispatch(createEvent(event))
+        onCreateEvent: (event) => dispatch(createEvent(event)),
+        onResetCreateEventReducer: () => dispatch(resetCreateEventReducer())
     };
 }
 

@@ -3,10 +3,11 @@ import { firebaseRef }  from 'src/firebase';
 export const CREATE_EVENT = "CREATE_EVENT";
 export const CREATE_EVENT_SUCCESS = 'CREATE_EVENT_SUCCESS';
 export const CREATE_EVENT_ERROR = 'CREATE_EVENT_ERROR';
+export const CREATE_EVENT_RESET = 'CREATE_EVENT_RESET';
 
 export function createEvent(event) {
     return dispatch => {
-        createEventAction();
+        dispatch(createEventAction());
         let eventsRef = firebaseRef.child(`/events`);
 
         eventsRef
@@ -19,6 +20,12 @@ export function createEvent(event) {
             .catch((error) => {
                 dispatch(createEventRejectedAction(error.message));
             });
+    };
+}
+
+export function resetCreateEventReducer() {
+    return dispatch => {
+        dispatch(createEventResetAction());
     };
 }
 
@@ -39,5 +46,11 @@ export function createEventRejectedAction(error) {
     return {
         type: CREATE_EVENT_ERROR,
         payload: error
+    };
+}
+
+export function createEventResetAction() {
+    return {
+        type: CREATE_EVENT_RESET
     };
 }

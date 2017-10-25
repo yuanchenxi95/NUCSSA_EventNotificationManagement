@@ -3,7 +3,8 @@ import { Record } from 'immutable';
 import {
     CREATE_EVENT,
     CREATE_EVENT_SUCCESS,
-    CREATE_EVENT_ERROR
+    CREATE_EVENT_ERROR,
+    CREATE_EVENT_RESET
 } from 'src/redux/actions/Event/CreateEvent.Action';
 import { noErrorValue } from 'src/utils';
 
@@ -32,6 +33,8 @@ export function createEventReducer(state = new CreateEventState(), {payload, typ
                 success: false,
                 error: payload
             });
+        case CREATE_EVENT_RESET:
+            return new CreateEventState();
         default:
             return state;
     }

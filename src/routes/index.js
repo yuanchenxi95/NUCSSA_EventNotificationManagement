@@ -25,7 +25,7 @@ export const routesObject = {
         }
     },
     private: {
-        event: {
+        eventList: {
             path: PRIVATE_STRING + '/event/eventList',
             name: 'events',
             component: EventListPage
@@ -47,6 +47,8 @@ export const routesObject = {
         component: FallBackPage
     }
 };
+
+export const defaultPrivatePath = routesObject.private.eventList.path;
 
 export const publicRoutesList = _.values(routesObject.public);
 export const privateRoutesList = _.values(routesObject.private);

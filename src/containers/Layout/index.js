@@ -25,8 +25,8 @@ Layout.propTypes = {
     authenticated: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state) => {
-    return { authenticated: state.auth.authenticated };
+const mapStateToProps = ({authReducer}) => {
+    return { authenticated: authReducer.authenticated };
 };
 
 export default withRouter(connect(mapStateToProps)(Layout));

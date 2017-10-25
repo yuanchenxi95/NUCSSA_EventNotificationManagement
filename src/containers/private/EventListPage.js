@@ -3,54 +3,38 @@ import PropTypes from 'prop-types';
 import { withRouter }  from 'react-router-dom';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import { Button, Alert } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { push } from 'react-router-redux';
 import { BootstrapTable, TableHeaderColumn }from 'react-bootstrap-table';
 
 import _ from 'lodash';
 
-import { loadEvents } from 'src/redux/actions/Events.Action';
+import { loadEventList } from 'src/redux/actions/Event/LoadEventList.Action';
 import { routesObject } from "src/routes";
+import Error from 'src/components/Error';
 
 class EventListPage extends React.Component {
     constructor() {
         super();
         this.redirectToCreateEvent = this.redirectToCreateEvent.bind(this);
-        this.renderError = this.renderError.bind(this);
     }
 
     componentWillMount() {
-        this.props.loadEvents();
+        this.props.onLoadEventList();
     }
 
     redirectToCreateEvent() {
         this.props.dispatch(push(routesObject.private.createEvent.path));
     }
 
-    renderError() {
-        let { error } = this.props;
-        if (!_.isNull(error)) {
-            return (
-                <div>
-                    <Alert bsStyle="danger">
-                        {error}
-                    </Alert>
-                </div>
-            );
-        }
-    }
-
     render() {
-        let { events, error, isSuccess } = this.props;
+        let { eventList, error, isLoading } = this.props;
 
-        if (error) {
-            return this.renderError();
-        }
-
-        if (!isSuccess) {
+        if (isLoading) {
             return (
                 <div>
                     <h1>Loading</h1>
+                    <Error error={error} />
                 </div>
             );
         }
@@ -62,9 +46,10 @@ class EventListPage extends React.Component {
         return(
             <div>
                 <h1>Event List</h1>
+                <Error error={error} />
                 <Button bsStyle="primary" onClick={this.redirectToCreateEvent} block>Create Event</Button>
                 <br/>
-                <BootstrapTable data={ events } options={ options }>
+                <BootstrapTable data={ eventList } options={ options }>
                     <TableHeaderColumn dataField='id' isKey hidden>Event Id</TableHeaderColumn>
                     <TableHeaderColumn dataField='Name'>Event Name</TableHeaderColumn>
                     <TableHeaderColumn dataField='Location' >Event Location</TableHeaderColumn>
@@ -79,32 +64,32 @@ class EventListPage extends React.Component {
 EventListPage.propTypes = {
     // onLogin: PropTypes.func.isRequired,
     error: PropTypes.string.isRequired,
-    isSuccess: PropTypes.bool.isRequired,
-    events: PropTypes.array.isRequired,
-    loadEvents: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    eventList: PropTypes.array.isRequired,
+    onLoadEventList: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired
 };
 
-function mapStateToProps({ eventsReducer}) {
+function mapStateToProps({ eventReducer}) {
     let {
         error,
-        isSuccess,
-        events
-    } = eventsReducer;
+        isLoading,
+        eventList
+    } = eventReducer.eventListReducer;
 
-    events = events.toArray();
+    eventList = eventList.toArray();
 
     return {
         error,
-        isSuccess,
-        events
+        isLoading,
+        eventList
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         dispatch,
-        loadEvents: () => dispatch(loadEvents())
+        onLoadEventList: () => dispatch(loadEventList())
     };
 }
 

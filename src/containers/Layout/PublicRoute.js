@@ -1,15 +1,16 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { routesObject } from 'src/routes';
+
+import { connect } from 'react-redux';
 
 class PublicRoute extends React.Component {
     constructor(props) {
         super(props);
     }
     render() {
-        let {component: Component, authenticated, ...props} = this.props;
-        let redirectPath = routesObject.private.event.path;
+        let {component: Component, authenticated, saved_uri, ...props} = this.props;
+        let redirectPath = saved_uri;
 
         return (
             <Route
@@ -25,7 +26,19 @@ class PublicRoute extends React.Component {
 
 PublicRoute.propTypes = {
     component: PropTypes.func.isRequired,
-    authenticated: PropTypes.bool.isRequired
+    authenticated: PropTypes.bool.isRequired,
+    saved_uri: PropTypes.string.isRequired
 };
 
-export default PublicRoute;
+
+const mapStateToProps = ({authReducer}) => {
+    return { saved_uri: authReducer.saved_uri };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        dispatch
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PublicRoute);

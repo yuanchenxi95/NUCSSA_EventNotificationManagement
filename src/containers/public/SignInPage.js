@@ -7,6 +7,7 @@ import { ControlLabel, Form, FormGroup, FormControl, Button, Alert } from 'react
 import _ from 'lodash';
 
 import { signInUser } from 'src/redux/actions/Auth.Action';
+import Error from 'src/components/Error';
 
 class SignInPage extends React.Component {
     constructor() {
@@ -43,10 +44,13 @@ class SignInPage extends React.Component {
     }
 
     render() {
+        let { error } = this.props;
         return(
             <div>
                 <h1>Sign In</h1>
-                {this.renderError()}
+
+                <Error error={error} />
+
                 <Form>
                     <FormGroup
                         controlId="email"
@@ -65,7 +69,7 @@ class SignInPage extends React.Component {
                         controlId="password"
                         // validationState={this.getValidationState()}
                     >
-                        <ControlLabel>Email</ControlLabel>
+                        <ControlLabel>Password</ControlLabel>
                         <FormControl
                             type="password"
                             value={this.state.password}
@@ -92,10 +96,10 @@ SignInPage.propTypes = {
     error: PropTypes.string
 };
 
-function mapStateToProps({ auth}) {
+function mapStateToProps({ authReducer }) {
     let {
         error
-    } = auth;
+    } = authReducer;
     return {
         error
     };

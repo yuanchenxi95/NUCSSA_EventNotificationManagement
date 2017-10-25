@@ -1,28 +1,36 @@
-import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR } from '../actions/Auth.Action';
+import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, SAVE_URI } from '../actions/Auth.Action';
+import { noErrorValue } from 'src/utils';
+import { defaultPrivatePath } from 'src/routes';
 
 const initialState =  {
     authenticated: false,
-    error: null
+    error: noErrorValue,
+    saved_uri: defaultPrivatePath
 };
 
-export default function gifs(state = initialState, action) {
-    switch (action.type) {
+export default function authReducer(state = initialState, {type, payload}) {
+    switch (type) {
         case AUTH_USER:
             return {
                 ...state,
                 authenticated: true,
-                error: null
+                error: noErrorValue
             };
         case SIGN_OUT_USER:
             return {
                 ...state,
                 authenticated: false,
-                error: null
+                error: noErrorValue
             };
         case AUTH_ERROR:
             return {
                 ...state,
-                error: action.payload.message
+                error: payload
+            };
+        case SAVE_URI:
+            return {
+                ...state,
+                saved_uri: payload
             };
         default:
             return state;

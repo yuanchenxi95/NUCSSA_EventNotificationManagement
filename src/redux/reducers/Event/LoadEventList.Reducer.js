@@ -3,7 +3,8 @@ import { List, Record } from 'immutable';
 import {
     LOAD_EVENT_LIST,
     LOAD_EVENT_LIST_ERROR,
-    LOAD_EVENT_LIST_SUCCESS
+    LOAD_EVENT_LIST_SUCCESS,
+    UNLOAD_EVENT_LIST
 } from 'src/redux/actions/Event/LoadEventList.Action';
 import { noErrorValue } from 'src/utils';
 
@@ -15,7 +16,7 @@ export const CreateEventListState = new Record({
 });
 
 
-export function eventListReducer(state = new CreateEventListState(), {payload, type}) {
+export function loadEventListReducer(state = new CreateEventListState(), {payload, type}) {
     switch (type) {
         case LOAD_EVENT_LIST:
             return state.merge({
@@ -38,6 +39,8 @@ export function eventListReducer(state = new CreateEventListState(), {payload, t
                 error: payload,
                 eventList: new List()
             });
+        case UNLOAD_EVENT_LIST:
+            return new CreateEventListState();
         default:
             return state;
     }

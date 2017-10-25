@@ -9,6 +9,8 @@ import Layout from './Layout';
 import { ConnectedRouter } from 'react-router-redux';
 import { history } from 'src/redux/store/configureStore';
 
+import 'bootstrap/dist/js/bootstrap.min';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
 
 class IndexContainer extends Component {

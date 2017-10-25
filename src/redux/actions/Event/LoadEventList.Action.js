@@ -4,25 +4,35 @@ import { firebaseTransformObjectToArray } from 'src/redux/utils';
 export const LOAD_EVENT_LIST = 'LOAD_EVENT_LIST';
 export const LOAD_EVENT_LIST_SUCCESS = 'LOAD_EVENT_LIST_SUCCESS';
 export const LOAD_EVENT_LIST_ERROR = 'LOAD_EVENT_LIST_ERROR';
+export const UNLOAD_EVENT_LIST = 'UNLOAD_EVENT_LIST';
 
 export function loadEventList() {
     return dispatch => {
-        loadEventListAction();
+        dispatch(loadEventListAction());
         let eventsRef = firebaseRef.child(`/events`);
 
         eventsRef
-            .once(
-                "value"
-            )
-            .then((snapshot) => {
-                let events = firebaseTransformObjectToArray(snapshot.val());
-                dispatch(loadEventListFulfilledAction(events));
-            })
-            .catch((error) => {
-                dispatch(loadEventListRejectedAction(error.message));
-            });
+            .on(
+                "value",
+                (snapshot) => {
+                    let events = firebaseTransformObjectToArray(snapshot.val());
+                    dispatch(loadEventListFulfilledAction(events));
+                }
+            );
     };
 
+}
+
+export function unloadEventList() {
+    return dispatch => {
+        dispatch(unloadEventListAction());
+        let eventsRef = firebaseRef.child(`/events`);
+
+        eventsRef
+            .off(
+                "value"
+            );
+    };
 }
 
 export function loadEventListAction() {
@@ -42,5 +52,11 @@ export function loadEventListRejectedAction(error) {
     return {
         type: LOAD_EVENT_LIST_ERROR,
         payload: error
+    };
+}
+
+export function unloadEventListAction() {
+    return {
+        type: UNLOAD_EVENT_LIST
     };
 }

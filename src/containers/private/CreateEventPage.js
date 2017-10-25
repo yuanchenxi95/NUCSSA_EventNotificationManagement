@@ -31,7 +31,7 @@ class CreateEventPage extends React.Component {
     }
 
     componentWillUnmount() {
-        this.props.onResetCreateEventReducer()
+        this.props.onResetCreateEventReducer();
     }
 
     redirectToEventList() {

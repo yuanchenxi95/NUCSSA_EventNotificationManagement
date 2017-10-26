@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { withRouter }  from 'react-router-dom';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import { ControlLabel, Form, FormGroup, FormControl, Button, Alert } from 'react-bootstrap';
+import { ControlLabel, Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { push } from 'react-router-redux';
 
-// import { signInUser } from 'src/redux/actions/Auth.Action';
 import { createEvent, resetCreateEventReducer } from 'src/redux/actions/Event/CreateEvent.Action';
 import { routesObject } from "src/routes";
 import Error from "src/components/Error";

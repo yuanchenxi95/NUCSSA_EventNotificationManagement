@@ -54,7 +54,6 @@ class SignInPage extends React.Component {
                 <Form>
                     <FormGroup
                         controlId="email"
-                        // validationState={this.getValidationState()}
                     >
                         <ControlLabel>Email</ControlLabel>
                         <FormControl
@@ -63,11 +62,9 @@ class SignInPage extends React.Component {
                             placeholder="Enter Email"
                             onChange={(e) => this.setState({email: e.target.value}) }
                         />
-                        {/*<FormControl.Feedback />*/}
                     </FormGroup>
                     <FormGroup
                         controlId="password"
-                        // validationState={this.getValidationState()}
                     >
                         <ControlLabel>Password</ControlLabel>
                         <FormControl
@@ -81,7 +78,6 @@ class SignInPage extends React.Component {
                                 }
                             }}
                         />
-                        {/*<FormControl.Feedback />*/}
                     </FormGroup>
                 </Form>
                 <Button bsStyle="primary" onClick={this.handleLogin} block>Login</Button>

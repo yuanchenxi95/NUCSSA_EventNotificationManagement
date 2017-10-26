@@ -1,12 +1,9 @@
 import _ from 'lodash';
 
-// import EventListPage from 'src/containers/EventListPage';
-// import SignUpPage from 'src/containers/SignUpPage';
 import FallBackPage from 'src/containers/public/FallBackPage';
 import SignInPage from 'src/containers/public/SignInPage';
 import EventListPage from 'src/containers/private/EventListPage';
 import CreateEventPage from 'src/containers/private/CreateEventPage';
-// import Dashboard from 'src/containers/private/Dashboard';
 
 export const PUBLIC_STRING = '/public';
 export const PRIVATE_STRING = '/private';
@@ -35,11 +32,6 @@ export const routesObject = {
             name: 'createEvent',
             component: CreateEventPage
         }
-        // dashboard: {
-        //     path: PRIVATE_STRING + '/dashboard',
-        //     name: 'event',
-        //     component: Dashboard
-        // }
     },
     fallBack: {
         path: '*',

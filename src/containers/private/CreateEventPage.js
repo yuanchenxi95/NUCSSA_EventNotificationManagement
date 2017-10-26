@@ -141,7 +141,7 @@ CreateEventPage.propTypes = {
     dispatch: PropTypes.func.isRequired
 };
 
-function mapStateToProps({ eventReducer }) {
+const mapStateToProps = function({ eventReducer }) {
     let {
         isLoading,
         success,
@@ -152,15 +152,15 @@ function mapStateToProps({ eventReducer }) {
         success,
         error
     };
-}
+};
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = function(dispatch) {
     return {
         dispatch,
         onCreateEvent: (event) => dispatch(createEvent(event)),
         onResetCreateEventReducer: () => dispatch(resetCreateEventReducer())
     };
-}
+};
 
 const enhance = compose(
     connect(mapStateToProps, mapDispatchToProps),

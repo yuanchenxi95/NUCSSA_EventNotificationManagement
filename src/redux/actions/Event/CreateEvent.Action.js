@@ -5,7 +5,7 @@ export const CREATE_EVENT_SUCCESS = 'CREATE_EVENT_SUCCESS';
 export const CREATE_EVENT_ERROR = 'CREATE_EVENT_ERROR';
 export const CREATE_EVENT_RESET = 'CREATE_EVENT_RESET';
 
-export function createEvent(event) {
+export const createEvent = (event) => {
     return dispatch => {
         dispatch(createEventAction());
         let eventsRef = firebaseRef.child(`/events`);
@@ -21,36 +21,36 @@ export function createEvent(event) {
                 dispatch(createEventRejectedAction(error.message));
             });
     };
-}
+};
 
-export function resetCreateEventReducer() {
+export const resetCreateEventReducer = () => {
     return dispatch => {
         dispatch(createEventResetAction());
     };
-}
+};
 
-export function createEventAction() {
+export const createEventAction= () => {
     return {
         type: CREATE_EVENT
     };
-}
+};
 
-export function createEventFulfilledAction(event) {
+export const createEventFulfilledAction = (event) => {
     return {
         type: CREATE_EVENT_SUCCESS,
         payload: event
     };
-}
+};
 
-export function createEventRejectedAction(error) {
+export const createEventRejectedAction = (error) => {
     return {
         type: CREATE_EVENT_ERROR,
         payload: error
     };
-}
+};
 
-export function createEventResetAction() {
+export const createEventResetAction= () => {
     return {
         type: CREATE_EVENT_RESET
     };
-}
+};

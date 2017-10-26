@@ -8,7 +8,7 @@ const initialState =  {
     saved_uri: defaultPrivatePath
 };
 
-export default function authReducer(state = initialState, {type, payload}) {
+export const authReducer = (state = initialState, {type, payload}) => {
     switch (type) {
         case AUTH_USER:
             return {
@@ -35,4 +35,4 @@ export default function authReducer(state = initialState, {type, payload}) {
         default:
             return state;
     }
-}
+};

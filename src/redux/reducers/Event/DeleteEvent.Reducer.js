@@ -13,8 +13,7 @@ export const DeleteEventState = new Record({
     error: noErrorValue
 });
 
-
-export function deleteEventReducer(state = new DeleteEventState(), {payload, type}) {
+export const deleteEventReducer = (state = new DeleteEventState(), {payload, type}) => {
     switch (type) {
         case DELETE_EVENT:
             return state.merge({
@@ -35,4 +34,4 @@ export function deleteEventReducer(state = new DeleteEventState(), {payload, typ
         default:
             return state;
     }
-}
+};

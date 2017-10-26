@@ -78,7 +78,7 @@ EventListPage.propTypes = {
     dispatch: PropTypes.func.isRequired
 };
 
-function mapStateToProps({ eventReducer}) {
+const mapStateToProps = function({ eventReducer}) {
     let {
         error,
         isLoading,
@@ -92,16 +92,16 @@ function mapStateToProps({ eventReducer}) {
         isLoading,
         eventList
     };
-}
+};
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = function (dispatch) {
     return {
         dispatch,
         onLoadEventList: () => dispatch(loadEventList()),
         onUnloadEventList: () => dispatch(unloadEventList()),
         onDeleteEvent: (eventID) => dispatch(deleteEvent(eventID))
     };
-}
+};
 
 const enhance = compose(
     connect(mapStateToProps, mapDispatchToProps),

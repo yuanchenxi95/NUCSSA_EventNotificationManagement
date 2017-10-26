@@ -4,7 +4,7 @@ export const DELETE_EVENT = "DELETE_EVENT";
 export const DELETE_EVENT_SUCCESS = 'DELETE_EVENT_SUCCESS';
 export const DELETE_EVENT_ERROR = 'DELETE_EVENT_ERROR';
 
-export function deleteEvent(eventID) {
+export const deleteEvent = (eventID) => {
     return dispatch => {
         dispatch(createEventAction());
         let eventRef = firebaseRef.child(`/events/${eventID}`);
@@ -18,24 +18,24 @@ export function deleteEvent(eventID) {
                 dispatch(createEventRejectedAction(error.message));
             });
     };
-}
+};
 
-export function createEventAction() {
+export const createEventAction = () => {
     return {
         type: DELETE_EVENT
     };
-}
+};
 
-export function createEventFulfilledAction(event) {
+export const createEventFulfilledAction = (event) => {
     return {
         type: DELETE_EVENT_SUCCESS,
         payload: event
     };
-}
+};
 
-export function createEventRejectedAction(error) {
+export const createEventRejectedAction = (error) => {
     return {
         type: DELETE_EVENT_ERROR,
         payload: error
     };
-}
+};

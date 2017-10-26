@@ -7,7 +7,7 @@ import createHistory from 'history/createHashHistory';
 
 export const history = createHistory();
 
-export default function configureStore() {
+export default () => {
     const store = createStore(
         rootReducers,
         {},
@@ -18,4 +18,4 @@ export default function configureStore() {
     );
     store.dispatch(verifyAuth());
     return store;
-}
+};

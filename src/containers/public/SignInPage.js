@@ -92,20 +92,20 @@ SignInPage.propTypes = {
     error: PropTypes.string
 };
 
-function mapStateToProps({ authReducer }) {
+const mapStateToProps = ({ authReducer }) => {
     let {
         error
     } = authReducer;
     return {
         error
     };
-}
+};
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: (email, password) => dispatch(signInUser({email, password})),
     };
-}
+};
 
 const enhance = compose(
     connect(mapStateToProps, mapDispatchToProps),

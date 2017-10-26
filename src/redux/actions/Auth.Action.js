@@ -5,7 +5,7 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_USER = 'AUTH_USER';
 export const SAVE_URI = 'SAVE_URI';
 
-export function signInUser(credentials) {
+export const signInUser = (credentials) => {
     return dispatch => {
         firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
             .then(() => {
@@ -15,9 +15,9 @@ export function signInUser(credentials) {
                 dispatch(authError(error.message));
             });
     };
-}
+};
 
-export function signOutUser() {
+export const signOutUser = () => {
     return dispatch => {
         firebase.auth().signOut()
             .then(() =>{
@@ -26,20 +26,20 @@ export function signOutUser() {
                 });
             });
     };
-}
+};
 
-export function saveURIBeforeAuth(uri) {
+export const saveURIBeforeAuth = (uri) => {
     return dispatch => {
         dispatch({
             type: SAVE_URI,
             payload: uri
         });
     };
-}
+};
 
 
-export function verifyAuth() {
-    return function (dispatch) {
+export const verifyAuth = () => {
+    return (dispatch) => {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 dispatch(authUser());
@@ -48,24 +48,24 @@ export function verifyAuth() {
             }
         });
     };
-}
+};
 
-export function authUser() {
+export const authUser = () => {
     return {
         type: AUTH_USER
     };
-}
+};
 
-export function authError(error) {
+export const authError = (error) => {
     return {
         type: AUTH_ERROR,
         payload: error
     };
-}
+};
 
-export function saveURI(uri) {
+export const saveURI = (uri) => {
     return {
         type: SAVE_URI,
         payload: uri
     };
-}
+};

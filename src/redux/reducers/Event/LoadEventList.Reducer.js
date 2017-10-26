@@ -15,8 +15,7 @@ export const CreateEventListState = new Record({
     eventList: new List()
 });
 
-
-export function loadEventListReducer(state = new CreateEventListState(), {payload, type}) {
+export const loadEventListReducer = (state = new CreateEventListState(), {payload, type}) => {
     switch (type) {
         case LOAD_EVENT_LIST:
             return state.merge({
@@ -44,4 +43,4 @@ export function loadEventListReducer(state = new CreateEventListState(), {payloa
         default:
             return state;
     }
-}
+};

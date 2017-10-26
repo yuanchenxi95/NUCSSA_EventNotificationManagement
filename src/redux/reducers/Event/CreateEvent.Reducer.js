@@ -14,8 +14,7 @@ export const CreateEventState = new Record({
     error: noErrorValue
 });
 
-
-export function createEventReducer(state = new CreateEventState(), {payload, type}) {
+export const createEventReducer = (state = new CreateEventState(), {payload, type}) => {
     switch (type) {
         case CREATE_EVENT:
             return state.merge({
@@ -38,4 +37,4 @@ export function createEventReducer(state = new CreateEventState(), {payload, typ
         default:
             return state;
     }
-}
+};

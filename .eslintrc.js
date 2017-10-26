@@ -35,6 +35,10 @@ module.exports = {
         "semi": [
             "error",
             "always"
+        ],
+        "func-style": [
+            "error",
+            "expression"
         ]
     }
 };

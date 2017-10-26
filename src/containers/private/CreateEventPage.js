@@ -125,6 +125,7 @@ class CreateEventPage extends React.Component {
                         />
                     </FormGroup>
                     <Button bsStyle="primary" onClick={this.handleCreate} block>Create</Button>
+                    <Button onClick={this.redirectToEventList} block>Cancel</Button>
                 </Form>
             </div>
         );

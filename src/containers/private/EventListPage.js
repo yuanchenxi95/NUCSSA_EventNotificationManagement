@@ -11,7 +11,7 @@ import { loadEventList, unloadEventList } from 'src/redux/actions/Event/LoadEven
 import { deleteEvent } from 'src/redux/actions/Event/DeleteEvent.Action';
 import { routesObject } from "src/routes";
 import Error from 'src/components/Error';
-import bootbox from 'bootbox';
+import { handleConfirmDeleteRow } from 'src/utils';
 
 class EventListPage extends React.Component {
     constructor() {
@@ -32,25 +32,8 @@ class EventListPage extends React.Component {
         this.props.dispatch(push(routesObject.private.createEvent.path));
     }
 
-    handleDeleteEvent(event) {
-        bootbox.confirm({
-            message: `<h3>Are you sure to delete this event: "${event.Name}"?</h3>`,
-            buttons: {
-                confirm: {
-                    label: 'Confirm',
-                    className: 'btn-danger'
-                },
-                cancel: {
-                    label: 'Cancel',
-                    className: 'btn-primary'
-                }
-            },
-            callback: (isConfirm) => {
-                if (isConfirm === true) {
-                    this.props.onDeleteEvent(event.id);
-                }
-            }
-        });
+    handleDeleteEvent(eventId) {
+        this.props.onDeleteEvent(eventId);
     }
 
     render() {
@@ -64,8 +47,8 @@ class EventListPage extends React.Component {
             );
         }
         let options = {
-            onRowClick: (row) => this.handleDeleteEvent(row)
-
+            onDeleteRow: (eventId) => this.handleDeleteEvent(eventId),
+            handleConfirmDeleteRow: handleConfirmDeleteRow
         };
         return(
             <div>
@@ -73,8 +56,8 @@ class EventListPage extends React.Component {
                 <Error error={error} />
                 <Button bsStyle="primary" onClick={this.redirectToCreateEvent} block>Create Event</Button>
                 <br/>
-                <BootstrapTable data={ eventList } options={ options } >
-                    <TableHeaderColumn dataField='id' isKey hidden>Event Id</TableHeaderColumn>
+                <BootstrapTable data={ eventList } remote deleteRow selectRow={{ mode: 'radio' }} options={ options } >
+                    <TableHeaderColumn dataField='id' isKey>Event Id</TableHeaderColumn>
                     <TableHeaderColumn dataField='Name'>Event Name</TableHeaderColumn>
                     <TableHeaderColumn dataField='Location' >Event Location</TableHeaderColumn>
                     <TableHeaderColumn dataField='Time'>Event Time</TableHeaderColumn>

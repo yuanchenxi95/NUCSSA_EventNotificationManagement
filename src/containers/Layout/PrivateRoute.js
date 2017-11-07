@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { routesObject } from 'src/routes';
+import Header from 'src/components/Header';
 import { saveURI } from 'src/redux/actions/Auth.Action';
 
 class PrivateRoute extends React.Component {
@@ -17,13 +18,16 @@ class PrivateRoute extends React.Component {
         let {component: Component, authenticated, ...props} = this.props;
         let redirectPath = routesObject.public.signIn.path;
         return (
-            <Route
-                exact
-                {...props}
-                render={(props) => authenticated === true
-                    ? <Component {...props} />
-                    : <Redirect to={{pathname: redirectPath, state: {from: props.location}}} />}
-            />
+            <div>
+                <Header/>
+                <Route
+                    exact
+                    {...props}
+                    render={(props) => authenticated === true
+                        ? <Component {...props} />
+                        : <Redirect to={{pathname: redirectPath, state: {from: props.location}}} />}
+                />
+            </div>
         );
     }
 }

@@ -10,6 +10,7 @@ import { history } from 'src/redux/store/configureStore';
 import 'bootstrap/dist/js/bootstrap.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
+import "./index.css";
 
 class IndexContainer extends Component {
     constructor(props) {
